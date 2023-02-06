@@ -1,0 +1,77 @@
+<div class="loginbg vh-100">
+    <div class="container p-5">
+      <div class="">
+        <div class="row">
+          <div class="col-md-3 col-sm-1"></div>
+          <div class="col-md-6 col-sm-10">
+            <div class="shadow p-3 mb-5 bg-body-tertiary  p-4 rounded">
+              <h1 class="text-center pt-4 pb-4 mt-4 mb-4">Login User</h1>
+              <form [formGroup]="login" (ngSubmit)="loginUser()">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label ps-1"
+                    >Email address</label
+                  >
+                  <div>
+                    <i class="fa fa-user position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="email"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="email"
+                      placeholder="Enter Email"
+                    />
+                  </div>
+                  <span
+                    style="color: red"
+                    *ngIf="email && email.invalid && email.touched"
+                    >This fild is invalid</span
+                  >
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label ps-1"
+                    >Password</label
+                  >
+                  <div>
+                    <i class="fa fa-key position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="password"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="password"
+                      placeholder="Enter Password"
+                    />
+                  </div>
+                  <span
+                    style="color: red"
+                    *ngIf="password && password.invalid && password.touched"
+                    >This fild is invalid</span
+                  >
+                  
+                  <p class="d-flex flex-row-reverse mt-2 mx-2">
+                    <a routerLink="/auth/forget-password"> Forget Password?</a>
+                  </p>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button
+                    [disabled]="login.invalid"
+                    type="submit"
+                    class="btn btn-primary border border-3 w-50 mt-4 rounded-pill"
+                  >
+                    <b class="text-light">Login</b>
+                  </button>
+                </div>
+                <p class="text-center pt-5">
+                  <b> <a routerLink="/auth/register">SIGN UP</a></b>
+                </p>
+                <p class="text-center">Login With</p>
+                <div class="d-flex justify-content-center">
+                  <asl-google-signin-button >
+                    <span  id="google"></span
+                  ></asl-google-signin-button>
+                    </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

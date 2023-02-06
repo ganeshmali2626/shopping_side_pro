@@ -1,0 +1,124 @@
+<div class="registerbg ">
+    <div class="container  p-5">
+      <div class="">
+        <div class="row">
+          <div class="col-md-3 col-sm-1"></div>
+          <div class="col-md-6 col-sm-10">
+            <div class="shadow p-3 mb-5 bg-body-tertiary  p-4 rounded">
+              <h1 class="text-center pt-4 pb-4 mt-4 mb-4">Register New User</h1>
+              <form [formGroup]="register" (ngSubmit)="collection()">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label mx-2"
+                    >Full Name<span style="color: red">*</span></label
+                  >
+                  <div>
+                    <i class="fa fa-user position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="text"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="name"
+                      placeholder="Enter Full Name"
+                    />
+                  </div>
+                  <span
+                    class="text-danger"
+                    *ngIf="name?.touched && register.get('name')?.errors?.['isVoidSpace']"
+                  >
+                    <strong>Not allowed</strong> blank spaces* &nbsp;
+                  </span>
+                  <span
+                    style="color: red"
+                    *ngIf="name && name.touched && register.get('name')?.errors?.['required']"
+                    >This fild is invalid</span
+                  >
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label mx-2"
+                    >Company Name<span style="color: red">*</span></label
+                  >
+                  <div>
+                    <i class="fa fa-building position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="text"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="company"
+                      placeholder="Enter Company Name"
+                    />
+                  </div>
+                  <span
+                    class="text-danger"
+                    *ngIf="companyname?.touched && register.get('companyname')?.errors?.['isVoidSpace']"
+                  >
+                    <strong>Not allowed</strong> blank spaces* &nbsp;
+                  </span>
+                  <span
+                    style="color: red"
+                    *ngIf="companyname &&  register.get('company')?.errors?.['required'] && companyname.touched"
+                    >This fild is invalid</span
+                  >
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label mx-2"
+                    >Email address<span style="color: red">*</span></label
+                  >
+                  <div>
+                    <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="email"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="email"
+                      placeholder="Enter Email address"
+                    />
+                  </div>
+                  <span
+                    style="color: red"
+                    *ngIf="email && email.invalid && email.touched"
+                    >This fild is invalid</span
+                  >
+                </div>
+    
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label mx-2"
+                    >Password<span style="color: red">*</span></label
+                  >
+                  <div>
+                    <i class="fa fa-key position-absolute mt-2 ms-3"></i>
+                    <input
+                      type="password"
+                      class="form-control border-0 border-bottom px-5"
+                      formControlName="password"
+                      placeholder="Enter Password"
+                    />
+                  </div>
+                  <span
+                    class="text-danger"
+                    *ngIf="Password?.touched && register.get('password')?.errors?.['isVoidSpace']"
+                  >
+                    <strong>Not allowed</strong> blank spaces* &nbsp;
+                  </span>
+                  <span
+                    *ngIf="Password && register.get('password')?.errors?.['required'] && Password.touched"
+                    style="color: red"
+                    >This field is invalid</span
+                  >
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button
+                    [disabled]="register.invalid"
+                    type="submit"
+                    class="btn border border-3 w-50 mt-4 rounded-pill"
+                  >
+                    <b class="text-light">Register</b>
+                  </button>
+                </div>
+                <p class="text-center pt-5">
+                  <b> <a routerLink="/auth/login">LOGIN</a></b>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    

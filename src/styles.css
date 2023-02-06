@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "ngx-toastr/toastr";
+
+body {
+  background-image: linear-gradient(rgb(224, 223, 223), rgb(224, 223, 223));
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

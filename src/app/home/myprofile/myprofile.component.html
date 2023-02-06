@@ -1,0 +1,245 @@
+<div class="profilebg vh-100">
+    <app-navbar></app-navbar>
+    <div class="container mt-5 mb-4">
+      <div class="">
+        <div class="row">
+          <div class="col-md-2 col-sm-1"></div>
+          <div class="col-md-8 col-sm-10">
+            <div class="shadow p-3 mb-5 bg-body-tertiary  p-4 rounded">
+              <div class="d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-primary "
+                  data-bs-toggle="modal"
+                  data-bs-target="#changPass"
+                >
+                Change Password
+                  
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary "
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+              </div>
+  
+              <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
+              <hr class="mx-5 pb-4" />
+              <form>
+                <div class="row">
+                  <div class="col-md-4">
+                    <img
+                      src="../../../assets/noImage.png"
+                      alt="user image"
+                      class="img-thumbnail h-75 w-75"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <h2>Name: {{ userDetails?.name }}</h2>
+                    <p>
+                      Email: {{ userDetails?.email }}
+                      <span>
+                        <i
+                          [ngClass]="
+                            userDetails?.isEmailVerified
+                              ? 'bi-patch-check-fill text-success '
+                              : 'bi-x-octagon-fill text-danger '
+                          "
+                          class="bi"
+                        ></i>
+                      </span>
+                    </p>
+                    <p>Company: {{ userDetails?._org?.name }}</p>
+                    <p>Company Email: {{ userDetails?._org?.email }}</p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <i class="bi bi-person-fill-add"></i>&nbsp;EDIT COMPANY DETAILS
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="collection()" [formGroup]="register">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label mx-2"
+                >Company Name<span style="color: red">*</span></label
+              >
+              <div>
+                <i class="fa fa-user position-absolute mt-2 ms-3"></i>
+                <input
+                  type="text"
+                  class="form-control border-0 border-bottom px-5"
+                  formControlName="name"
+                  placeholder="Enter Full Name"
+                />
+              </div>
+              <span
+                style="color: red"
+                *ngIf="name && name.invalid && name.touched"
+                >This fild is invalid</span
+              >
+  
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label mx-2"
+                  >Company Email address<span style="color: red">*</span></label
+                >
+                <div>
+                  <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="email"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="email"
+                    placeholder="Enter Email address"
+                  />
+                </div>
+                <span
+                style="color: red"
+                *ngIf="email && email.invalid && email.touched"
+                >This fild is invalid</span
+              >
+              </div>
+  
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  [disabled]="register.invalid"
+                  type="submit"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- forget password module -->
+
+  <div
+    class="modal fade"
+    id="changPass"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <i class="bi bi-pencil-square"></i>&nbsp;CHANGE PASSWORD
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="forgetPassword()" [formGroup]="password">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label mx-2"
+                > Old_password<span style="color: red">*</span></label
+              >
+              <div>
+                <i class="bi bi-shield-lock-fill position-absolute mt-2 ms-3"></i>
+                <input
+                  type="password"
+                  class="form-control border-0 border-bottom px-5"
+                  formControlName="old_password"
+                  placeholder="Enter old_password"
+                />
+              </div>
+              <span
+                style="color: red"
+                *ngIf="old_password && old_password.invalid && old_password.touched"
+                >This fild is invalid</span
+              >
+  
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label mx-2"
+                  >New_password<span style="color: red">*</span></label
+                >
+                <div>
+                  <i class="bi bi-shield-lock-fill position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="password"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="new_password"
+                    placeholder="Enter new_password"
+                  />
+                </div>
+                <span
+                style="color: red"
+                *ngIf="new_password && new_password.invalid && new_password.touched"
+                >This fild is invalid</span
+              >
+              </div>
+  
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  [disabled]="password.invalid"
+                  type="submit"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
