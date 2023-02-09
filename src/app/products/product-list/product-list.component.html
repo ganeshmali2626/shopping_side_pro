@@ -1,0 +1,49 @@
+
+<a routerLink="/products/create-product"><b>Products</b></a>
+<app-navbar></app-navbar>
+<div class="mx-5">
+  <div class="d-flex col-md-12 flex-wrap mx-5">
+    <div
+      *ngFor="let product of products?.results; let i = index"
+      class="card mx-3 mt-4"
+    >
+      <div class="carousel slide" id="img{{ i }}" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div
+            *ngFor="let img of product?.images; let j = index"
+            [class.active]="j == 0"
+            class="carousel-item"
+          >
+            <img src="{{ img.url }}" class="d-block w-100 rounded-top" alt="" />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          attr.data-bs-target="#img{{ i }}"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          attr.data-bs-target="#img{{ i }}"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="card-body">
+        <h5>{{ product.name }}</h5>
+        <div class="description">{{ product?.description }}</div>
+        <div class="mb-2">
+          <b><i class="bi bi-currency-rupee"></i>&nbsp;{{ product?.price }}</b>
+        </div>
+        <a (click)="temp(product._id)" class="btn btn-primary">View Product</a>
+      </div>
+    </div>
+  </div>
+</div>

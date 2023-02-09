@@ -27,7 +27,7 @@ export class RegistrationComponent implements OnInit {
   });
 
   collection() {
-    
+
     this.http
       .postData('/auth/register?captcha=true', this.register.value)
       .subscribe({
@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
         },
       });
 
-      
+
   }
   ngOnInit(): void {
     this.captchaa();
@@ -55,8 +55,8 @@ export class RegistrationComponent implements OnInit {
     this.recaptcha.execute('importantAction').subscribe((token: string) => {
       this.register.get('captcha')?.setValue(token)
       // console.log(this.register.value.captcha);
-      
-      
+
+
     });
   }
   get name() {

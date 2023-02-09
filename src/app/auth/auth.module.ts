@@ -10,20 +10,20 @@ import { ForgotPassworComponent } from './forgot-passwor/forgot-passwor.componen
 import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
-import { SocialLoginModule,SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
-  GoogleLoginProvider,
+  SocialLoginModule,
+  SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
-
-
-
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
     ResetPasswordComponent,
-    ForgotPassworComponent
+    ForgotPassworComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     CommonModule,
@@ -34,28 +34,30 @@ import {
     SocialLoginModule,
     ReactiveFormsModule,
     FormsModule,
-    RecaptchaV3Module
+    RecaptchaV3Module,
   ],
-  providers: [{
-    provide: RECAPTCHA_V3_SITE_KEY,
-    useValue: environment.recaptcha.siteKey,
-}, 
-{
-  provide: 'SocialAuthServiceConfig',
-  useValue: {
-    autoLogin: false,
-    providers: [
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider(
-          '893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com'
-        )
-      },
-    ],
-    onError: (err:any) => {
-      console.error(err);
-    }
-  } as SocialAuthServiceConfig,
-}],
+  providers: [
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.recaptcha.siteKey,
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com'
+            ),
+          },
+        ],
+        onError: (err: any) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

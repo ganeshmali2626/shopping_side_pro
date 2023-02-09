@@ -11,7 +11,6 @@ import { ExampleInterceptorInterceptor } from './Intersepters/example-intercepto
 import { ApiServiceService } from './services/api-service.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -31,13 +30,13 @@ import { ApiServiceService } from './services/api-service.service';
       preventDuplicates: true,
     }),
   ],
-  providers: [ 
+  providers: [
     ApiServiceService,{
       provide:HTTP_INTERCEPTORS,
       useClass:ExampleInterceptorInterceptor,
       multi:true
     },
-    
+
   ],
   bootstrap: [AppComponent]
 })

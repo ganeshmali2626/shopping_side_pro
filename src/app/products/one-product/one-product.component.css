@@ -1,0 +1,17 @@
+.images
+{
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+}
+.headimage{
+  height: 300px;
+  width: 300px;
+}
+p{
+  display: -webkit-box;
+    max-width: 400px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

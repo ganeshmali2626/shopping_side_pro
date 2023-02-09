@@ -5,7 +5,6 @@ import { AuthGuardGuard, AuthGuardlogin } from './guard/auth-guard.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
-    canActivate: [AuthGuardlogin],
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then((mod) => mod.AuthModule),
@@ -16,10 +15,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./home/home.module').then((mod) => mod.HomeModule),
   },
+  {
+    canActivate: [AuthGuardGuard],
+    path: 'products',
+    loadChildren: () =>
+      import('./products/products.module').then((mod) => mod.ProductsModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

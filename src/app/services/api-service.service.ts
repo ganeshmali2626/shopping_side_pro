@@ -11,7 +11,7 @@ export class ApiServiceService {
 
   postData(finalUrl: string, data: any) {
     return this.http.post(this.baseUrl + finalUrl, data)
-    
+
   }
   getData(finalUrl: string) {
     return this.http.get(this.baseUrl + finalUrl);

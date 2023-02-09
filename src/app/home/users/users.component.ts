@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
   name1: string = '';
@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
       .patchData(`/users/${this.IdToEdit}`, this.register.value)
       .subscribe({
         next: (res) => {
-          this.toastr.success('Registered .', 'Successfully!');
+          // this.toastr.success('Registered .', 'Successfully!');
           this.register.reset();
           this.getUserData();
         },
@@ -148,7 +148,7 @@ export class UsersComponent implements OnInit {
         .patchData(`/users/role/${this.editId}`, { role: this.role })
         .subscribe({
           next: (res) => {
-            this.toastr.success('Registered .', 'Successfully!');
+            // this.toastr.success('Registered .', 'Successfully!');
             this.register.reset();
             this.getUserData();
           },

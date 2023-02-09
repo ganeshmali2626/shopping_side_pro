@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 
-
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
-  styleUrls: ['./myprofile.component.css']
+  styleUrls: ['./myprofile.component.css'],
 })
 export class MyprofileComponent implements OnInit {
   userDetails: any;
@@ -56,21 +55,35 @@ export class MyprofileComponent implements OnInit {
       },
     });
   }
-  forgetPassword(){
-    this.httpdata.postData('/users/auth/change-password', this.password.value).subscribe({
-      next: (res) => {
-        this.password.reset();
-        this.toastr.success('Password Has Been Changed', 'Successfully!');
-      },
-      error: (err) => {
-        this.toastr.error(err.error.message, 'Somthing Wrong!');
-        console.log(err);
-        
-      },
-    });
+  forgetPassword() {
+    this.httpdata
+      .postData('/users/auth/change-password', this.password.value)
+      .subscribe({
+        next: (res) => {
+          this.password.reset();
+          this.toastr.success('Password Has Been Changed', 'Successfully!');
+        },
+        error: (err) => {
+          this.toastr.error(err.error.message, 'Somthing Wrong!');
+          console.log(err);
+        },
+      });
+  }
+  verifyAccount() {
+    if (!this.userDetails?.isEmailVerified) {
+      this.httpdata.postData('/auth/send-verification-email', '').subscribe({
+        next: (res) => {
+          console.log(res);
+          this.rout.navigate(['auth/verify-email']);
 
-    
-
+          // this.toastr.success('Password Has Been Changed', 'Successfully!');
+        },
+        error: (err) => {
+          // this.toastr.error(err.error.message, 'Somthing Wrong!');
+          console.log(err);
+        },
+      });
+    }
   }
   get name() {
     return this.register.get('name');
@@ -79,10 +92,10 @@ export class MyprofileComponent implements OnInit {
     return this.register.get('email');
   }
 
-  get old_password(){
+  get old_password() {
     return this.password.get('old_password');
   }
-  get new_password(){
+  get new_password() {
     return this.password.get('new_password');
   }
 }

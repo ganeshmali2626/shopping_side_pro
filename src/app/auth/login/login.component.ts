@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   protected aFormGroup!: FormGroup;
   token!: string;
   stoken: any;
-  user!: SocialUser;
   socialAuthService: any;
   constructor(
     private router: Router,
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
       next: (res: any) => {
         console.log(res.token);
         this.localDetails.setData(res.token);
-        this.router.navigate(['/home/myprofile']);
+        this.router.navigate(['/products/product-list']);
         console.log(res);
       },
       error: (err) => {
@@ -66,14 +65,10 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
       if (this.token) {
-        if (this.user.idToken) {
-          this.stoken = this.user.idToken;
+        if (user.idToken) {
+          this.stoken = user.idToken;
 
-          this.googleSignIn();
-        } else {
-          this.stoken = this.user.authToken;
           this.googleSignIn();
         }
       }
@@ -104,7 +99,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           localStorage.setItem('login', JSON.stringify(res.token)),
-            this.router.navigate(['/home/myprofile']);
+            this.router.navigate(['products/product-list']);
         },
         error: (err) => {
           this.signOut();

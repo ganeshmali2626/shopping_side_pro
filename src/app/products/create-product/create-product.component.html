@@ -1,0 +1,110 @@
+<div class="loginbg">
+  <div class="container p-5">
+    <div class="">
+      <div class="row">
+        <div class="col-md-2 col-sm-1"></div>
+        <div class="col-md-8 col-sm-10">
+          <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
+            <h1 class="text-center pt-2 pb-4 mt-2 mb-4">Create Product</h1>
+            <form [formGroup]="CreateProduct" (ngSubmit)="CreatePro()">
+              <div class="mb-3">
+                <div class="col-xs-6">
+                  <div class="row center-xs mb-5 mx-5">
+                    <div class="image-container d-flex justify-content-center">
+                      <img
+                        *ngFor="let images of productImg"
+                        [src]="images"
+                        alt="ProductImg"
+                      />
+                    </div>
+                  </div>
+                  <div class="row center-xs">
+                    <div class="col-xs-12 d-flex flex-column">
+                      <label
+                        for="exampleInputEmail1"
+                        class="form-label ps-1 mb-3"
+                        >Choose Product Image</label
+                      >
+                      <input
+                        type="file"
+                        (change)="ImageUpload($event)"
+                        multiple=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label ps-1"
+                  >Product Name</label
+                >
+                <div>
+                  <i class="bi bi-box-fill position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="text"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="name"
+                    placeholder="Enter Product Name"
+                  />
+                </div>
+                <span
+                  style="color: red"
+                  *ngIf="name && name.invalid && name.touched"
+                  >This fild is invalid</span
+                >
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Product description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  formControlName="description"
+                  placeholder="Enter Product description"
+                ></textarea>
+                <span
+                  style="color: red"
+                  *ngIf="
+                    description && description.invalid && description.touched
+                  "
+                  >This fild is invalid</span
+                >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label ps-1"
+                  >Price</label
+                >
+                <div>
+                  <i
+                    class="bi bi-currency-rupee position-absolute mt-2 ms-3"
+                  ></i>
+                  <input
+                    type="number"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="price"
+                    placeholder="Enter Price"
+                  />
+                </div>
+                <span
+                  style="color: red"
+                  *ngIf="price && price.invalid && price.touched"
+                  >This fild is invalid</span
+                >
+              </div>
+              <div class="d-flex justify-content-center">
+                <button
+                  type="submit"
+                  class="btn btn-success border border-3 w-50 mt-4 rounded-pill"
+                >
+                  <b class="text-light">Submit</b>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

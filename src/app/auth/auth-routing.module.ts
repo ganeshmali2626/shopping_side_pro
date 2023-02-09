@@ -4,24 +4,34 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPassworComponent } from './forgot-passwor/forgot-passwor.component';
-
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { AuthGuardGuard, AuthGuardlogin } from '../guard/auth-guard.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
+    canActivate: [AuthGuardlogin],
     component: LoginComponent,
     path: 'login',
   },
   {
+    canActivate: [AuthGuardlogin],
     component: RegistrationComponent,
     path: 'register',
   },
   {
-    component: ForgotPassworComponent ,
+    canActivate: [AuthGuardlogin],
+    component: ForgotPassworComponent,
     path: 'forget-password',
   },
   {
-    component: ResetPasswordComponent ,
+    canActivate: [AuthGuardlogin],
+    component: ResetPasswordComponent,
     path: 'reset-password',
+  },
+  {
+    canActivate: [AuthGuardGuard],
+    component: VerifyEmailComponent,
+    path: 'verify-email',
   },
 ];
 
