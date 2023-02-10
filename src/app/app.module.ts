@@ -6,15 +6,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaModule} from 'ng-recaptcha';
+import { RecaptchaModule } from 'ng-recaptcha';
 import { ExampleInterceptorInterceptor } from './Intersepters/example-interceptor.interceptor';
 import { ApiServiceService } from './services/api-service.service';
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,13 +28,13 @@ import { ApiServiceService } from './services/api-service.service';
     }),
   ],
   providers: [
-    ApiServiceService,{
-      provide:HTTP_INTERCEPTORS,
-      useClass:ExampleInterceptorInterceptor,
-      multi:true
+    ApiServiceService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ExampleInterceptorInterceptor,
+      multi: true,
     },
-
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -5,10 +5,18 @@ img
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  transition: transform .5s ease;
+}
+img:hover{
+  transform: scale(1.1);
+}
+#imgparent{
+  height: 180px;
+  overflow: hidden;
 }
 .card{
   width: 13rem;
-  height: 20rem;
+  height: 25rem;
 }
 .description{
   display: inline-block;
@@ -24,3 +32,11 @@ h5{
     overflow: hidden !important;
     text-overflow: ellipsis;
 }
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-<div class="container bg-info mt-5 p-5 mb-5 rounded">
+<div class="container bg-secondary mt-5 p-5 mb-5 rounded">
   <div class="row">
     <div class="col-md-5">
       <div class="d-flex justify-content-center">
@@ -8,13 +8,13 @@
           alt=""
         />
       </div>
-      <div class="d-flex justify-content-center rounded flex-wrap">
+      <div class="d-flex border" style="height: 110px; overflow: auto">
         <div
           *ngFor="let img of productData?.images; let j = index"
           [class.active]="j == 0"
         >
           <img
-            class="images"
+            class="images mx-2 pt-1"
             (click)="imageUrl($event)"
             src="{{ img.url }}"
             alt=""
@@ -33,12 +33,195 @@
           </h3>
         </div>
         <div class="d-flex justify-content-between">
-          <button class="btn btn-primary mt-4">
-            <i class="bi bi-pencil-square"></i>&nbsp;Edit Product Details</button
-          ><button (click)="deleteProduct()" class="btn btn-danger mt-4">
+          <button
+            type="button"
+            class="btn btn-info mt-4"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            (click)="setvalue()"
+          >
+            <i class="bi bi-pencil-square"></i>&nbsp;Edit Product Details
+          </button>
+          <button (click)="deleteProduct()" class="btn btn-danger mt-4">
             <i class="bi bi-trash-fill"></i>&nbsp;Delete Product
           </button>
         </div>
+        <div>
+          <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            class="btn btn-primary mt-4 w-100"
+          >
+            <i class="bi bi-images"></i>&nbsp;&nbsp;&nbsp;Edit Images
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- module -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <i class="bi bi-person-fill-add"></i>&nbsp;EDIT PRODUCT DETAILS
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="collection()" [formGroup]="CreateProduct">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label ps-1"
+              >Product Name</label
+            >
+            <div>
+              <i class="bi bi-box-fill position-absolute mt-2 ms-3"></i>
+              <input
+                type="text"
+                class="form-control border-0 border-bottom px-5"
+                formControlName="name"
+                placeholder="Enter Product Name"
+              />
+            </div>
+            <span
+              style="color: red"
+              *ngIf="name1 && name1.invalid && name1.touched"
+              >This fild is invalid</span
+            >
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"
+              >Product description</label
+            >
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              formControlName="description"
+              placeholder="Enter Product description"
+            ></textarea>
+            <span
+              style="color: red"
+              *ngIf="description && description.invalid && description.touched"
+              >This fild is invalid</span
+            >
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label ps-1"
+              >Price</label
+            >
+            <div>
+              <i class="bi bi-currency-rupee position-absolute mt-2 ms-3"></i>
+              <input
+                type="number"
+                class="form-control border-0 border-bottom px-5"
+                formControlName="price"
+                placeholder="Enter Price"
+              />
+            </div>
+            <span
+              style="color: red"
+              *ngIf="price && price.invalid && price.touched"
+              >This fild is invalid</span
+            >
+          </div>
+          <div class="d-flex justify-content-center">
+            <button
+              type="submit"
+              class="btn btn-success border border-3 w-50 mt-4 rounded-pill"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <b class="text-light">Submit</b>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT IMAGES</h1>
+        <button
+          (click)="close()"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex" style="height: 170px; overflow: auto">
+          <div
+            ng-repeat="file in imagefinaldata"
+            class="img_wrp mx-2"
+            *ngFor="let img of productData?.images; let j = index"
+            [class.active]="j == 0"
+          >
+            <img
+              class="images-model imgResponsiveMax"
+              src="{{ img.url }}"
+              alt=""
+            />
+            <div
+              (click)="getImage(img?.public_id)"
+              id="close"
+              class="btn-close bg-light rounded-circle p-1"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <input
+        class="mx-2"
+        type="file"
+        (change)="ImageUpload($event)"
+        multiple=""
+      />
+      <div class="modal-footer">
+        <button
+          (click)="close()"
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          (click)="save()"
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          Save changes
+        </button>
       </div>
     </div>
   </div>
