@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ExampleInterceptorInterceptor } from './Intersepters/example-interceptor.interceptor';
 import { ApiServiceService } from './services/api-service.service';
+import { SellerRoutingModule } from './seller/seller-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { ApiServiceService } from './services/api-service.service';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SellerRoutingModule,
     RecaptchaModule,
     ToastrModule.forRoot({
       timeOut: 1000,

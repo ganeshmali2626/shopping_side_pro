@@ -6,20 +6,9 @@ import { UsersComponent } from './users/users.component';
 import { HomeRoutingModule } from './home-routing-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [
-    MyprofileComponent,
-    NavbarComponent,
-    UsersComponent
-  ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ],
+  declarations: [MyprofileComponent, NavbarComponent, UsersComponent],
+  imports: [CommonModule, HomeRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [NavbarComponent],
 })
-export class HomeModule { }
+export class HomeModule {}
