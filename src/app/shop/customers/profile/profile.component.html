@@ -1,0 +1,523 @@
+<div class="profilebg vh-100">
+  <app-main-nav></app-main-nav>
+  <div class="container mt-5 mb-4">
+    <div class="">
+      <div class="row">
+        <div class="col-md-2 col-sm-1"></div>
+        <div class="col-md-8 col-sm-10">
+          <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Button with data-bs-target
+              </button>
+              <div class="dropdown">
+                <a
+                  class="btn btn-secondary dropdown-toggle"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-gear-fill"></i>
+                  Settings
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                    >
+                      Edit User Details
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#changPass"
+                    >
+                      Change Password
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Update Profile
+                    </a>
+                  </li>
+                  <li (click)="deleteAccount()">
+                    <a class="dropdown-item"> Delete Account </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addressModal"
+                    >
+                      Add New Address
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
+            <hr class="mx-5 pb-4" />
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <img
+                    src="{{ userDetails?.picture }}"
+                    alt="user image"
+                    class="img-thumbnail h-100 w-100"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <h2>Name: {{ userDetails?.name }}</h2>
+                  <p>Email: {{ userDetails?.email }}</p>
+                  <label>Address :</label>
+                  <div
+                    class="border border-dark p-2 rounded"
+                    style="
+                      height: 150px;
+                      overflow-x: hidden;
+                      overflow-y: scroll;
+                    "
+                  >
+                    <div
+                      *ngFor="let address of userAddress;let i=index"
+                      class="border border-dark p-2 rounded mb-2"
+                    >
+                     <div class="d-flex justify-content-between">
+                      <div><b><u>Address&nbsp; {{i+1}}</u>&nbsp;:</b></div>
+                      <div>
+                      <button (click)="editAddress(address)" data-bs-toggle="modal"
+                      data-bs-target="#addressModal" class="btn btn-sm btn-primary rounded-circle"><i class="bi bi-pencil-square"></i></button>
+                      <button (click)="deleteAddress(address)" class="ms-1 btn-sm btn btn-danger rounded-circle"><i class="bi bi-x-circle"></i></button>
+                    </div>
+                    </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <p>
+                            <strong>Street:</strong>
+                            <span id="displayStreetAddress">{{
+                              address.street
+                            }}</span>
+                          </p>
+                        </div>
+
+                        <div>
+                          <p>
+                            <strong>Address Line 2:</strong>
+                            <span id="displayAddressLine2">{{
+                              address.addressLine2
+                            }}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <p>
+                            <strong>City:</strong>
+                            <span id="displayCity">{{ address.city }}</span>
+                          </p>
+                        </div>
+                        <div>
+                          <p>
+                            <strong>State:</strong>
+                            <span id="displayState">{{ address.state }}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <p>
+                          <strong>Pin Code:</strong>
+                          <span id="displayZipCode">{{ address.pin }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <i class="bi bi-person-fill-add"></i>&nbsp;EDIT USER DETAILS
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="collection()" [formGroup]="register">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label mx-2"
+              >Name<span style="color: red">*</span></label
+            >
+            <div>
+              <i class="fa fa-user position-absolute mt-2 ms-3"></i>
+              <input
+                type="text"
+                class="form-control border-0 border-bottom px-5"
+                formControlName="name"
+                placeholder="Enter Full Name"
+              />
+            </div>
+            <span
+              style="color: red"
+              *ngIf="name && name.invalid && name.touched"
+              >This fild is invalid</span
+            >
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label mx-2"
+                >Email address<span style="color: red">*</span></label
+              >
+              <div>
+                <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
+                <input
+                  type="email"
+                  class="form-control border-0 border-bottom px-5"
+                  formControlName="email"
+                  placeholder="Enter Email address"
+                />
+              </div>
+              <span
+                style="color: red"
+                *ngIf="email && email.invalid && email.touched"
+                >This fild is invalid</span
+              >
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="register.invalid"
+                type="submit"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- forget password module -->
+
+<div
+  class="modal fade"
+  id="changPass"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <i class="bi bi-pencil-square"></i>&nbsp;CHANGE PASSWORD
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="forgetPassword()" [formGroup]="password">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label mx-2">
+              Old_password<span style="color: red">*</span></label
+            >
+            <div>
+              <i class="bi bi-shield-lock-fill position-absolute mt-2 ms-3"></i>
+              <input
+                type="password"
+                class="form-control border-0 border-bottom px-5"
+                formControlName="old_password"
+                placeholder="Enter old_password"
+              />
+            </div>
+            <span
+              style="color: red"
+              *ngIf="
+                old_password && old_password.invalid && old_password.touched
+              "
+              >This fild is invalid</span
+            >
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label mx-2"
+                >New_password<span style="color: red">*</span></label
+              >
+              <div>
+                <i
+                  class="bi bi-shield-lock-fill position-absolute mt-2 ms-3"
+                ></i>
+                <input
+                  type="password"
+                  class="form-control border-0 border-bottom px-5"
+                  formControlName="new_password"
+                  placeholder="Enter new_password"
+                />
+              </div>
+              <span
+                style="color: red"
+                *ngIf="
+                  new_password && new_password.invalid && new_password.touched
+                "
+                >This fild is invalid</span
+              >
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="password.invalid"
+                type="submit"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- images modal  -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <i class="bi bi-image"></i>&nbsp; USER IMAGE
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div
+          class="image-container d-flex justify-content-center"
+          style="height: 170px"
+        >
+          <img [src]="deletImg" alt="ProductImg" />
+        </div>
+        <input
+          [(ngModel)]="profile"
+          type="file"
+          (change)="ImageUpload($event)"
+        />
+        <button
+          (click)="removeProfile()"
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Remove Profile
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          (click)="saveImg()"
+          type="button"
+          data-bs-dismiss="modal"
+          class="btn btn-primary"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- address modal  -->
+
+<div
+  class="modal fade"
+  id="addressModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <i class="bi bi-house-add-fill"></i>&nbsp; ADDRESS
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <form [formGroup]="getAddress" (ngSubmit)="address()">
+            <div class="form-group">
+              <label class="text-strong">street :</label>
+              <input
+                type="text"
+                formControlName="street"
+                class="form-control form-control-sm"
+                placeholder="Enter street"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">address line 2 :</label>
+
+              <input
+                type="text"
+                formControlName="addressLine2"
+                class="form-control form-control-sm"
+                placeholder="Enter addressLine2"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">Pin code :</label>
+
+              <input
+                type="number"
+                formControlName="pin"
+                class="form-control form-control-sm"
+                placeholder="Enter pinCode"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">city :</label>
+
+              <input
+                type="text"
+                formControlName="city"
+                class="form-control form-control-sm"
+                placeholder="Enter city"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">State :</label>
+
+              <input
+                formControlName="state"
+                class="form-control form-control-sm"
+                placeholder="Enter country"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="getAddress.invalid"
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+    </div>
+    <div class="dropdown mt-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Dropdown button
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

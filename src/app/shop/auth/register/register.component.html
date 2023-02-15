@@ -1,0 +1,242 @@
+<div class="registerbg">
+  <div class="container p-5">
+    <div class="">
+      <div class="row">
+        <div class="col-md-3 col-sm-1"></div>
+        <div class="col-md-6 col-sm-10">
+          <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
+            <h1 class="text-center pt-4 pb-4 mt-4 mb-4">Register New User</h1>
+            <form [formGroup]="register" (ngSubmit)="collection()">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label mx-2"
+                  >Full Name<span style="color: red">*</span></label
+                >
+                <div>
+                  <i class="fa fa-user position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="text"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="name"
+                    placeholder="Enter Full Name"
+                  />
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="name?.touched && register.get('name')?.errors?.['isVoidSpace']"
+                >
+                  <strong>Not allowed</strong> blank spaces* &nbsp;
+                </span>
+                <span
+                  style="color: red"
+                  *ngIf="name && name.touched && register.get('name')?.errors?.['required']"
+                  >This fild is invalid</span
+                >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label mx-2"
+                  >Email address<span style="color: red">*</span></label
+                >
+                <div>
+                  <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="email"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="email"
+                    placeholder="Enter Email address"
+                  />
+                </div>
+                <span
+                  style="color: red"
+                  *ngIf="email && email.invalid && email.touched"
+                  >This fild is invalid</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label mx-2"
+                  >Password<span style="color: red">*</span></label
+                >
+                <div>
+                  <i class="fa fa-key position-absolute mt-2 ms-3"></i>
+                  <input
+                    type="password"
+                    class="form-control border-0 border-bottom px-5"
+                    formControlName="password"
+                    placeholder="Enter Password"
+                  />
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="Password?.touched && register.get('password')?.errors?.['isVoidSpace']"
+                >
+                  <strong>Not allowed</strong> blank spaces* &nbsp;
+                </span>
+                <span
+                  *ngIf="Password && register.get('password')?.errors?.['required'] && Password.touched"
+                  style="color: red"
+                  >This field is invalid</span
+                >
+              </div>
+              <div class="mb-3">
+                <!-- <div class="flex-hcenter">
+                  <form style="max-width: 400px;">
+                    <div class="form-group">
+                      <label class="text-strong">User Name :</label>
+                      <input type="text" name="userName" class="form-control form-control-sm">
+                    </div>
+                    <div class="form-group">
+                      <label>Address :</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="addressInput"
+                         readonly />
+                        <span class="glyphicon glyphicon-new-window"></span>
+                        <div class="input-group-append">
+                          <span class="input-group-text" (click)="openAddressModal()">
+                            <i class="fa fa-external-link"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div> -->
+              </div>
+              <label>Address :</label>
+              <!-- <button
+
+              > -->
+
+
+
+              <div class="form-group" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
+                <div class="input-group">
+                  <input type="text" [value]="addressShow==undefined?'':addressShow" class="form-control" name="addressInput"
+                   readonly />
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="bi bi-arrow-right-square-fill"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- </button> -->
+              <div class="d-flex justify-content-center">
+                <button
+                  [disabled]="register.invalid"
+                  type="submit"
+                  class="btn btn-primary border border-3 w-50 mt-4 rounded-pill"
+                >
+                  <b class="text-light">Register</b>
+                </button>
+              </div>
+              <p class="text-center pt-5">
+                <b> <a routerLink="/shop/auth/login">LOGIN</a></b>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- address modal  -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <i class="bi bi-house-add-fill"></i>&nbsp; ADDRESS
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <form [formGroup]="getAddress" (ngSubmit)="address()">
+            <div class="form-group">
+              <label class="text-strong">street :</label>
+              <input
+                type="text"
+                formControlName="street"
+                class="form-control form-control-sm"
+                placeholder="Enter street"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">address line 2 :</label>
+
+              <input
+                type="text"
+                formControlName="addressLine2"
+                class="form-control form-control-sm"
+                placeholder="Enter addressLine2"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">Pin code :</label>
+
+              <input
+                type="number"
+                formControlName="pin"
+                class="form-control form-control-sm"
+                placeholder="Enter pinCode"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">city :</label>
+
+              <input
+                type="text"
+                formControlName="city"
+                class="form-control form-control-sm"
+                placeholder="Enter city"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="text-strong">State :</label>
+
+              <input
+                formControlName="state"
+                class="form-control form-control-sm"
+                placeholder="Enter country"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="getAddress.invalid"
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

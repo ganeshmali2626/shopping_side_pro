@@ -35,7 +35,6 @@ export class AuthGuardGuard implements CanActivate {
   providedIn: 'root',
 })
 export class AuthGuardlogin implements CanActivate {
-  xyz: any = JSON.parse(localStorage.getItem('login')!);
 
   constructor(
     private router: Router,
@@ -61,5 +60,61 @@ export class AuthGuardlogin implements CanActivate {
 }
 
 
+// customer authgard
 
+@Injectable({
+  providedIn: 'root'
+})
+export class CustomerAuthGuardGuard implements CanActivate {
+  constructor(
+    private router: Router,
+    private localDetails: LocalStorageServiceService
+  ) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    if (this.localDetails.customerGetData() === null) {
+      this.router.navigate(['shop/auth/login']);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+}
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CustomerAuthGuardlogin implements CanActivate {
+
+  constructor(
+    private router: Router,
+    private localDetails: LocalStorageServiceService
+  ) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+
+    if (this.localDetails.customerGetData() === null) {
+      return true;
+    } else {
+      this.router.navigate(['/shop/products']);
+      return false;
+    }
+  }
+}
 

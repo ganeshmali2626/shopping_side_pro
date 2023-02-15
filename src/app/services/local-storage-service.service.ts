@@ -16,4 +16,14 @@ export class LocalStorageServiceService {
   removeData() {
     localStorage.removeItem('login');
   }
+
+  customerSetData(token: any) {
+    localStorage.setItem('customerlogin', JSON.stringify(token));
+  }
+  customerGetData() {
+    return JSON.parse(localStorage.getItem('customerlogin')!);
+  }
+  customerremoveData() {
+    localStorage.removeItem('customerlogin');
+  }
 }

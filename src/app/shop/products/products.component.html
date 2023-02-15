@@ -1,9 +1,6 @@
-<app-navbar></app-navbar>
+<app-main-nav></app-main-nav>
 <div class="mx-5 mt-2">
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-info" routerLink="/seller/products/create-product">
-      Create Produc
-    </button>
     <div>
       <b class="mx-2">SortBy</b>
       <select
@@ -24,9 +21,9 @@
         #limit
         (change)="handleLimit(limit.value)"
       >
-      <option selected="selected" value="4">4</option>
-      <option value="8">8</option>
-      <option value="12">12</option>
+        <option value="4">4</option>
+        <option selected="selected" value="8">8</option>
+        <option value="12">12</option>
       </select>
     </div>
     <form class="d-flex" role="search ">
@@ -82,13 +79,19 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      <div class="mx-2">
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
       <div class="card-body">
         <h5>{{ product.name }}</h5>
         <div class="description">{{ product?.description }}</div>
-        <div class="mb-2">
+        <div class="mb-2 mt-2">
           <b><i class="bi bi-currency-rupee"></i>&nbsp;{{ product?.price }}</b>
         </div>
-        <a (click)="temp(product._id)" class="btn btn-primary">View Product</a>
       </div>
     </div>
   </div>

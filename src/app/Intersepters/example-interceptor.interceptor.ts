@@ -15,16 +15,27 @@ export class ExampleInterceptorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
    let req:any;
-
-   req = request.clone({
-    setHeaders: {
-      Authorization: `Bearer ${JSON.parse(
-        localStorage.getItem('login')!
-      )}`,
+    if(request.url.includes("shop/") || request.url.includes("customers")){
+      req = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem('customerlogin')!
+            )}`,
+          }
+        });
     }
-  });
+    else{
 
-   
+      req = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem('login')!
+            )}`,
+          }
+        });
+    }
+
+
     return next.handle(req);
   }
 }
