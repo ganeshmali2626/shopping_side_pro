@@ -1,11 +1,9 @@
 <div class="loginbg vh-100">
   <div class="container p-5">
-    <div class="">
-      <div class="row">
-        <div class="col-md-3 col-sm-1"></div>
-        <div class="col-md-6 col-sm-10">
+
+        <div class="d-flex justify-content-center mt-5">
           <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
-            <h1 class="text-center pt-4 pb-4 mt-4 mb-4">Login User</h1>
+            <h4 class="text-center">Login User</h4>
             <form [formGroup]="login" (ngSubmit)="loginUser()">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label ps-1"
@@ -46,20 +44,20 @@
                 >
 
                 <p class="d-flex flex-row-reverse mt-2 mx-2">
-                  <a routerLink="/auth/forget-password"> Forget Password?</a>
+                  <a routerLink="/auth/forget-password"><small> Forget Password?</small></a>
                 </p>
               </div>
               <div class="d-flex justify-content-center">
                 <button
                   [disabled]="login.invalid"
                   type="submit"
-                  class="btn btn-primary border border-3 w-50 mt-4 rounded-pill"
+                  class="btn btn-primary border border-3 w-50 rounded-pill"
                 >
-                  <b class="text-light">Login</b>
+                  <small class="text-light">Login</small>
                 </button>
               </div>
-              <p class="text-center pt-5">
-                <b> <a routerLink="/auth/register">SIGN UP</a></b>
+              <p class="text-center">
+                 <a routerLink="/auth/register"><small>SIGN UP</small></a>
               </p>
               <p class="text-center">Login With</p>
               <div class="d-flex justify-content-center">
@@ -72,5 +70,4 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+

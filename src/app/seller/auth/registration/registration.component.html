@@ -1,11 +1,8 @@
-<div class="registerbg ">
-    <div class="container  p-5">
-      <div class="">
-        <div class="row">
-          <div class="col-md-3 col-sm-1"></div>
-          <div class="col-md-6 col-sm-10">
+<div class="vh-100 ">
+    <div class="container  p-1">
+     <div class="d-flex justify-content-center mt-5">
             <div class="shadow p-3 mb-5 bg-body-tertiary  p-4 rounded">
-              <h1 class="text-center pt-4 pb-4 mt-4 mb-4">Register New User</h1>
+              <h4 class="text-center ">Register New User</h4>
               <form [formGroup]="register" (ngSubmit)="collection()">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label mx-2"
@@ -106,19 +103,18 @@
                   <button
                     [disabled]="register.invalid"
                     type="submit"
-                    class="btn border border-3 w-50 mt-4 rounded-pill"
+                    class="btn border border-3 w-50 rounded-pill"
                   >
                     <b class="text-light">Register</b>
                   </button>
                 </div>
-                <p class="text-center pt-5">
-                  <b> <a routerLink="/auth/login">LOGIN</a></b>
+                <p class="text-center ">
+                   <a routerLink="/auth/login"><small>LOGIN</small></a>
                 </p>
               </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+
 

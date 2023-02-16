@@ -1,104 +1,75 @@
-<div class="profilebg vh-100">
-  <app-main-nav></app-main-nav>
-  <div class="container mt-5 mb-4">
-    <div class="">
-      <div class="row">
-        <div class="col-md-2 col-sm-1"></div>
-        <div class="col-md-8 col-sm-10">
-          <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                <i  class="bi bi-list"></i>
-              </button>
-            </div>
+<div class="vh-100">
+<app-main-nav></app-main-nav>
+<div class="container mt-2">
+  <div class="shadow mb-5 bg-body-tertiary p-4 rounded">
 
-            <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
-            <hr class="mx-5 pb-4" />
-            <form>
-              <div class="row">
-                <div class="col-md-4">
-                  <img
-                    src="{{ userDetails?.picture }}"
-                    alt="user image"
-                    class="img-thumbnail h-100 w-100"
-                  />
-                </div>
-                <div class="col-md-8">
-                  <h2>Name: {{ userDetails?.name }}</h2>
-                  <p>Email: {{ userDetails?.email }}</p>
-                  <label>Address :</label>
-                  <div
-                    class="border border-dark p-2 rounded"
-                    style="
-                      height: 150px;
-                      overflow-x: hidden;
-                      overflow-y: scroll;
-                    "
-                  >
-                    <div
-                      *ngFor="let address of userAddress;let i=index"
-                      class="border border-dark p-2 rounded mb-2"
-                    >
-                     <div class="d-flex justify-content-between">
-                      <div><b><u>Address&nbsp; {{i+1}}</u>&nbsp;:</b></div>
-                      <div>
-                      <button (click)="editAddress(address)" data-bs-toggle="modal"
-                      data-bs-target="#addressModal" class="btn btn-sm btn-primary rounded-circle"><i class="bi bi-pencil-square"></i></button>
-                      <button (click)="deleteAddress(address)" class="ms-1 btn-sm btn btn-danger rounded-circle"><i class="bi bi-x-circle"></i></button>
-                    </div>
-                    </div>
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <p>
-                            <strong>Street:</strong>
-                            <span id="displayStreetAddress">{{
-                              address.street
-                            }}</span>
-                          </p>
-                        </div>
+    <div class="row">
+      <!-- profile -->
+      <div class="text-center mt-0 col-md-6">
+        <div class="d-flex justify-content-end mb-3">
+          <button
+            class="btn btn-dark"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+        <div class="p-3">
+          <img
+            src="{{ userDetails?.picture }}"
+            alt="user image"
+            class="img-thumbnail"
+          />
+        </div>
+        <div class="">
+          <h2>Name: {{ userDetails?.name }}</h2>
+          <p>Email: {{ userDetails?.email }}</p>
+        </div>
+      </div>
 
-                        <div>
-                          <p>
-                            <strong>Address Line 2:</strong>
-                            <span id="displayAddressLine2">{{
-                              address.addressLine2
-                            }}</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <p>
-                            <strong>City:</strong>
-                            <span id="displayCity">{{ address.city }}</span>
-                          </p>
-                        </div>
-                        <div>
-                          <p>
-                            <strong>State:</strong>
-                            <span id="displayState">{{ address.state }}</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div>
-                        <p>
-                          <strong>Pin Code:</strong>
-                          <span id="displayZipCode">{{ address.pin }}</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <!-- address -->
+
+      <div class="col-md-6 ">
+        <div
+          *ngFor="let address of userAddress; let i = index"
+          class="border border-dark rounded mb-2"
+        >
+          <div class="d-flex justify-content-between p-1 mx-2 border-bottom">
+            <h6>Address :{{ i + 1 }}</h6>
+            <div>
+              <div>
+                <button
+                  (click)="editAddress(address)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addressModal"
+                  class="btn btn-sm btn-primary rounded-circle"
+                >
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button
+                  (click)="deleteAddress(address)"
+                  class="ms-1 btn-sm btn btn-danger rounded-circle"
+                >
+                  <i class="bi bi-x-circle"></i>
+                </button>
               </div>
-              <div class="d-flex justify-content-center"></div>
-            </form>
+            </div>
+          </div>
+
+          <div class="fw-bold px-3">
+            <p>{{ address?.street + ", " + address?.addressLine2 }}</p>
+            <p>{{ address?.city + ", " + address?.state }}</p>
+            <p>pincode: {{ address?.pin }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+</div>
 <!-- Modal -->
 <div
   class="modal fade"
@@ -142,45 +113,44 @@
               *ngIf="name && name.invalid && name.touched"
               >This fild is invalid</span
             >
-
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label mx-2"
-                >Email address<span style="color: red">*</span></label
-              >
-              <div>
-                <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
-                <input
-                  type="email"
-                  class="form-control border-0 border-bottom px-5"
-                  formControlName="email"
-                  placeholder="Enter Email address"
-                />
-              </div>
-              <span
-                style="color: red"
-                *ngIf="email && email.invalid && email.touched"
-                >This fild is invalid</span
-              >
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label mx-2"
+              >Email address<span style="color: red">*</span></label
+            >
+            <div>
+              <i class="fa fa-envelope position-absolute mt-2 ms-3"></i>
+              <input
+                type="email"
+                class="form-control border-0 border-bottom px-5"
+                formControlName="email"
+                placeholder="Enter Email address"
+              />
             </div>
+            <span
+              style="color: red"
+              *ngIf="email && email.invalid && email.touched"
+              >This fild is invalid</span
+            >
+          </div>
 
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                [disabled]="register.invalid"
-                type="submit"
-                class="btn btn-success"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                Save
-              </button>
-            </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              [disabled]="register.invalid"
+              type="submit"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Save
+            </button>
           </div>
         </form>
       </div>
@@ -218,7 +188,7 @@
             <label for="exampleInputEmail1" class="form-label mx-2">
               Old_password<span style="color: red">*</span></label
             >
-            <div>
+            <div class="mb-3">
               <i class="bi bi-shield-lock-fill position-absolute mt-2 ms-3"></i>
               <input
                 type="password"
@@ -308,7 +278,7 @@
       </div>
       <div class="modal-body">
         <div
-          class="image-container d-flex justify-content-center"
+          class="image-container d-flex justify-content-center mb-4"
           style="height: 170px"
         >
           <img [src]="deletImg" alt="ProductImg" />
@@ -370,7 +340,7 @@
       <div class="modal-body">
         <div class="modal-body">
           <form [formGroup]="getAddress" (ngSubmit)="address()">
-            <div class="form-group">
+            <div class="mb-3">
               <label class="text-strong">street :</label>
               <input
                 type="text"
@@ -379,8 +349,7 @@
                 placeholder="Enter street"
               />
             </div>
-
-            <div class="form-group">
+            <div class="mb-3">
               <label class="text-strong">address line 2 :</label>
 
               <input
@@ -390,8 +359,7 @@
                 placeholder="Enter addressLine2"
               />
             </div>
-
-            <div class="form-group">
+            <div class="mb-3">
               <label class="text-strong">Pin code :</label>
 
               <input
@@ -401,8 +369,7 @@
                 placeholder="Enter pinCode"
               />
             </div>
-
-            <div class="form-group">
+            <div class="mb-3">
               <label class="text-strong">city :</label>
 
               <input
@@ -412,8 +379,7 @@
                 placeholder="Enter city"
               />
             </div>
-
-            <div class="form-group">
+            <div class="mb-3">
               <label class="text-strong">State :</label>
 
               <input
@@ -448,45 +414,58 @@
 
 <!-- cnvas  -->
 
-<div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div
+  class="offcanvas offcanvas-start w-25"
+  tabindex="-1"
+  id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel"
+>
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Settings</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body">
     <div class="options">
-        <button
-
-            class="btn btn-outline-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
-            Edit User Details
-
-        </button>
-        <button
-            class="btn btn-outline-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#changPass"
-          >
-            Change Password
-        </button>
-        <button
-            class="btn btn-outline-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Update Profile
-        </button>
-        <button (click)="deleteAccount()" class="btn btn-outline-primary w-100"> Delete Account
-        </button>
-        <button
-            class="btn btn-outline-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#addressModal"
-          >
-            Add New Address
-        </button>
+      <button
+        (click)="editAccount()"
+        class="btn btn-outline-primary w-100 mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        Edit User Details
+      </button>
+      <button
+        class="btn btn-outline-primary w-100 mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#changPass"
+      >
+        Change Password
+      </button>
+      <button
+        class="btn btn-outline-primary w-100 mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Update Profile
+      </button>
+      <button
+        (click)="deleteAccount()"
+        class="btn btn-outline-primary w-100 mb-3"
+      >
+        Delete Account
+      </button>
+      <button
+        class="btn btn-outline-primary w-100 mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addressModal"
+      >
+        Add New Address
+      </button>
     </div>
   </div>
 </div>

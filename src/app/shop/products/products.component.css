@@ -6,13 +6,10 @@ img
   -o-background-size: cover;
   background-size: cover;
   transition: transform .5s ease;
+  padding: 5px;
 }
 img:hover{
   transform: scale(1.1);
-}
-#imgparent{
-  height: 180px;
-  overflow: hidden;
 }
 .card{
   width: 14rem;

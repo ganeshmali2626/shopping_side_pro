@@ -121,6 +121,10 @@ export class ProfileComponent implements OnInit {
         },
       });
   }
+  editAccount(){
+    this.register.controls['name'].setValue(this.userDetails.name);
+    this.register.controls['email'].setValue(this.userDetails.email);
+  }
   forgetPassword() {
     this.httpdata
       .postData('/customers/auth/change-password', this.password.value)
