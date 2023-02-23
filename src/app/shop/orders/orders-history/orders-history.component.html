@@ -1,0 +1,191 @@
+<div class="container py-3">
+  <table class="table align-middle rounded mb-2">
+    <thead>
+      <tr class="border-bottom border-danger">
+        <th>Transation_ID</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Payment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        (click)="getdata(order._id)"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        class="border-bottom border-dark"
+        *ngFor="let order of orders?.results"
+      >
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="ms-3 text-center">
+              <p class="fw-bold mb-1">
+                {{ order.transactionNo ? order.transactionNo : "-" }}
+              </p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{ order.total }}</p>
+        </td>
+        <td>
+          <span
+            *ngIf="order.status === 'Pending'"
+            class="badge rounded-pill text-bg-warning d-inline"
+            >{{ order.status }}</span
+          >
+          <span
+            *ngIf="order.status === 'Confirmed'"
+            class="badge rounded-pill text-bg-success d-inline"
+            >{{ order.status }}</span
+          >
+          <span
+            *ngIf="order.status === 'Cancelled'"
+            class="badge rounded-pill text-bg-danger d-inline"
+            >{{ order.status }}</span
+          >
+        </td>
+        <td>
+          <span
+            *ngIf="order.paymentStatus === 'Pending'"
+            class="badge rounded-pill text-bg-warning d-inline"
+            >{{ order.paymentStatus }}</span
+          >
+          <span
+            *ngIf="order.paymentStatus === 'Paid'"
+            class="badge rounded-pill text-bg-success d-inline"
+            >{{ order.paymentStatus }}</span
+          >
+          <span
+            *ngIf="order.paymentStatus === 'Failed'"
+            class="badge rounded-pill text-bg-danger d-inline"
+            >{{ order.paymentStatus }}</span
+          >
+        </td>
+        <td>
+          <div
+            class="mx-5"
+            *ngIf="
+              order.paymentStatus === 'Paid' || order.status === 'Cancelled';
+              else other_content
+            "
+          >
+            -
+          </div>
+          <ng-template #other_content
+            ><button
+              (click)="goToPayment(order._id)"
+              data-bs-toggle="modal"
+              class="btn btn-outline-primary d-inline"
+            >
+              Payment
+            </button></ng-template
+          >
+        </td>
+        <td>
+          <button
+            *ngIf="order.status !== 'Cancelled'"
+            (click)="cancelOrder(order._id)"
+            data-bs-toggle="modal"
+            class="btn btn-outline-dark d-inline"
+          >
+            Cancel Order
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination">
+      <li class="page-item">
+        <button
+          class="btn btn-primary"
+          [disabled]="page === 1"
+          (click)="previousPage()"
+        >
+          Previous
+        </button>
+      </li>
+      <li class="page-item">
+        <a class="page-link">{{ page }}</a>
+      </li>
+      <li class="page-item">
+        <button
+          class="btn btn-primary"
+          [disabled]="page === totalpages"
+          (click)="nextPage()"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <i class="bi bi-box-fill"></i>&nbsp;Products
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nmae</th>
+              <th scope="col">Price</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let products1 of pendingProduct?.items; let i = index">
+              <th scope="row">{{ i }}</th>
+              <td>{{ products1?.name }}</td>
+              <td>{{ products1?.price }}</td>
+              <td>{{ products1?.qty }}</td>
+              <td>{{ products1?.subTotal }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr />
+      <div class="">
+        <div class="d-flex justify-content-evenly">
+          <p class="mb-2">Subtotal</p>
+          <p class="mb-2">${{ pendingProduct?.total }}</p>
+        </div>
+
+        <div class="d-flex justify-content-evenly">
+          <p class="mb-2">Shipping</p>
+          <p class="mb-2">${{ pendingProduct?.deliveryFee }}</p>
+        </div>
+
+        <div class="d-flex justify-content-evenly mb-4">
+          <p class="mb-2">Total(Incl. taxes)</p>
+          <p class="mb-2">
+            ${{ pendingProduct?.total + subtotal?.deliveryFee }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

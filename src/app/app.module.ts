@@ -11,7 +11,9 @@ import { ExampleInterceptorInterceptor } from './Intersepters/example-intercepto
 import { ApiServiceService } from './services/api-service.service';
 import { SellerRoutingModule } from './seller/seller-routing.module';
 import { ShopModule } from './shop/shop.module';
-
+import { StoreModule } from '@ngrx/store';
+import { state } from '@angular/animations';
+import { cartReducer, cartReducer1 } from './cart-state-management/cart.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +25,7 @@ import { ShopModule } from './shop/shop.module';
     BrowserAnimationsModule,
     SellerRoutingModule,
     ShopModule,
+    StoreModule.forRoot({state:cartReducer,state1:cartReducer1}),
     RecaptchaModule,
     ToastrModule.forRoot({
       timeOut: 1000,
@@ -31,6 +34,7 @@ import { ShopModule } from './shop/shop.module';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+
   ],
   providers: [
     ApiServiceService,

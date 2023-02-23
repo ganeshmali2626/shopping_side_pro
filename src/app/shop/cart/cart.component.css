@@ -1,0 +1,11 @@
+@media (min-width: 1025px) {
+  .h-custom {
+  height: 100vh !important;
+  }
+  }
+  #description{
+    width:100px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+  }

@@ -4,6 +4,7 @@ import {
   CustomerAuthGuardGuard,
   CustomerAuthGuardlogin,
 } from '../guard/auth-guard.guard';
+import { CartComponent } from './cart/cart.component';
 import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     component: ProductsComponent,
     path: 'products',
+  },
+  {
+    component: CartComponent,
+    path: 'carts',
   },
   {
     canActivate: [CustomerAuthGuardlogin],
@@ -23,6 +28,12 @@ const routes: Routes = [
     path: 'customers',
     loadChildren: () =>
       import('./customers/customers.module').then((mod) => mod.CustomersModule),
+  },
+  {
+    canActivate: [CustomerAuthGuardGuard],
+    path: 'orders',
+    loadChildren: () =>
+      import('./orders/orders.module').then((mod) => mod.OrdersModule),
   },
 ];
 

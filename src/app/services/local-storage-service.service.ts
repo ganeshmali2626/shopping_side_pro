@@ -26,4 +26,13 @@ export class LocalStorageServiceService {
   customerremoveData() {
     localStorage.removeItem('customerlogin');
   }
+  setpaymentId(id:any){
+    localStorage.setItem('paymentId', JSON.stringify(id));
+  }
+  getpaymentId() {
+    return JSON.parse(localStorage.getItem('paymentId')!);
+  }
+  removepaymentId() {
+    localStorage.removeItem('paymentId');
+  }
 }

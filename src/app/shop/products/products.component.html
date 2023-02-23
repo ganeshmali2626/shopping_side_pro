@@ -89,8 +89,12 @@
       <div class="card-body">
         <h5>{{ product.name }}</h5>
         <div class="description">{{ product?.description }}</div>
-        <div class="mb-2 mt-2">
+        <div class="mt-2">
           <b><i class="bi bi-currency-rupee"></i>&nbsp;{{ product?.price }}</b>
+        </div>
+        <div class="position-absolute bottom-0 mb-2">
+          <button (click)="add(product)" type="button" class="btn btn-danger btn-sm m-1"><i class="bi bi-plus"></i>Add Cart</button>
+          <button (click)="buyNow(product)" type="button" class="btn btn-primary btn-sm m-1"><i class="bi bi-cart4">&nbsp;</i>Buy Now</button>
         </div>
       </div>
     </div>

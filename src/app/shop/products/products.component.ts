@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { addCart, addOneCart, addOneTotal, addTotal } from 'src/app/cart-state-management/cart.action';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 
 @Component({
@@ -16,7 +18,14 @@ export class ProductsComponent implements OnInit {
   totalpages!: number;
   url = `/shop/products?limit=${this.limit}&page=${this.page}`;
   products: any;
-  constructor(private http: ApiServiceService, private rout: Router) {}
+  oneProduct: { deliveryFee: number, items: any, total: number } = {
+    deliveryFee:50,
+      items:[],
+      total:0
+  };
+  constructor(private http: ApiServiceService, private rout: Router,private store:Store<{state:any}>) {
+
+  }
   ngOnInit(): void {
     this.getUserData();
   }
@@ -32,9 +41,9 @@ export class ProductsComponent implements OnInit {
       },
     });
   }
-  temp(data: string) {
-    this.rout.navigate(['/shop/products/one-product'], { state: { example: data } });
-  }
+  // temp(data: string) {
+  //   this.rout.navigate(['/shop/products/one-product'], { state: { example: data } });
+  // }
 
   sortByData(data: any) {
     console.log(data);
@@ -68,5 +77,27 @@ export class ProductsComponent implements OnInit {
     this.url = `/shop/products?limit=${this.limit}&page=${this.page}`;
     this.getUserData();
   }
+
+  add(data:any) {
+    data.qty=1;
+    data.subTotal=data.price;
+    data['productId'] = data['_id'];
+    this.store.dispatch(addCart({productData:data}));
+    this.store.dispatch(addTotal());
+  }
+
+  buyNow(data:any){
+    data.qty=1;
+    data.subTotal=data.price
+    data['productId'] = data['_id'];
+    console.log(data);
+    this.store.dispatch(addOneCart({dataInfo11:data}));
+    this.store.dispatch(addOneTotal());
+
+    this.rout.navigate(['/shop/customers/creat-order']);
+  }
+
+
+
 
 }

@@ -5,12 +5,16 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ShopModule } from '../shop.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateOrderComponent } from './create-order/create-order.component';
+import { MakePaymentComponent } from './make-payment/make-payment.component';
 
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    CreateOrderComponent,
+    MakePaymentComponent
   ],
   imports: [
     CommonModule,
