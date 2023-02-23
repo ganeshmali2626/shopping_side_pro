@@ -7,7 +7,7 @@ import { ShopModule } from '../shop.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { MakePaymentComponent } from './make-payment/make-payment.component';
     CommonModule,
     CustomersRoutingModule,
     ShopModule,
+    ImageCropperModule,
     FormsModule,
     ReactiveFormsModule
   ]

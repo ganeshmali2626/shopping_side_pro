@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { Config, HookEvent } from 'dompurify';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',

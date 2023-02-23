@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { addCart, addOneCart, addOneTotal, addTotal } from 'src/app/cart-state-management/cart.action';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { Config, HookEvent } from 'dompurify';
 
 @Component({
   selector: 'app-products',

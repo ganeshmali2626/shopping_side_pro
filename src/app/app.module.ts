@@ -14,6 +14,10 @@ import { ShopModule } from './shop/shop.module';
 import { StoreModule } from '@ngrx/store';
 import { state } from '@angular/animations';
 import { cartReducer, cartReducer1 } from './cart-state-management/cart.reducer';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import {NgDompurifyModule} from '@tinkoff/ng-dompurify';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +27,8 @@ import { cartReducer, cartReducer1 } from './cart-state-management/cart.reducer'
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgDompurifyModule,
+    NgxDropzoneModule,
     SellerRoutingModule,
     ShopModule,
     StoreModule.forRoot({state:cartReducer,state1:cartReducer1}),

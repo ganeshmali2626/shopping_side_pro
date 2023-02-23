@@ -4,6 +4,7 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { ProductsComponent } from './products/products.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { CartComponent } from './cart/cart.component';
+import {NgDompurifyModule} from '@tinkoff/ng-dompurify';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { CartComponent } from './cart/cart.component';
   ],
   imports: [
     CommonModule,
+    NgDompurifyModule,
     ShopRoutingModule
   ],
   exports: [MainNavComponent],

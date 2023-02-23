@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { base64ToFile, Dimensions, ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,8 +16,11 @@ export class ProfileComponent implements OnInit {
   userAddress: any;
   editadd:any;
   deletImg: any;
+  photo:any
   profile: string = '';
-  data = new FormData();
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
   constructor(
     private httpdata: ApiServiceService,
     private rout: Router,
@@ -39,6 +43,14 @@ export class ProfileComponent implements OnInit {
     pin: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
   });
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+}
+imageCropped(event: ImageCroppedEvent) {
+  this.croppedImage = event.base64;
+  this.photo= base64ToFile(this.croppedImage)
+
+}
 
   address() {
     if(this.editadd==undefined)
@@ -85,7 +97,7 @@ export class ProfileComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.userDetails = res;
-        this.deletImg = this.userDetails.picture;
+        this.croppedImage = this.userDetails.picture;
       },
       error: (err) => {
         this.rout.navigate(['/shop/auth/login']);
@@ -141,11 +153,16 @@ export class ProfileComponent implements OnInit {
   }
 
   saveImg() {
-    this.httpdata.postData('/customers/profile-picture', this.data).subscribe({
+    let data = new FormData();
+    data.append('picture',this.photo);
+    this.httpdata.postData('/customers/profile-picture', data).subscribe({
       next: (res) => {
-        this.data.delete;
+        console.log(res);
+        this.photo=""
         this.displayInfo();
         this.profile = '';
+        this.imageChangedEvent = '';
+  this.croppedImage=""
       },
       error: (err) => {
         this.toastr.error(err.error.message, 'Somthing Wrong!');
@@ -153,14 +170,14 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
-  ImageUpload(event: any) {
-    this.data.append('picture', event.target.files[0]);
-    var reder = new FileReader();
-    reder.readAsDataURL(event.target.files[0]);
-    reder.onload = (data: any) => {
-      this.deletImg = data.target.result;
-    };
-  }
+  // ImageUpload(event: any) {
+  //   this.data.append('picture', event.target.files[0]);
+  //   var reder = new FileReader();
+  //   reder.readAsDataURL(event.target.files[0]);
+  //   reder.onload = (data: any) => {
+  //     this.deletImg = data.target.result;
+  //   };
+  // }
   removeProfile() {
     Swal.fire({
       title: 'Are you sure?',

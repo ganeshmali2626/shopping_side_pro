@@ -6,6 +6,10 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OneProductComponent } from './one-product/one-product.component';
 import { HomeModule } from '../home/home.module';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgxEditorModule } from 'ngx-editor';
+import {NgDompurifyModule} from '@tinkoff/ng-dompurify';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +21,9 @@ import { HomeModule } from '../home/home.module';
     CommonModule,
     ProductsRoutingModule,
     ReactiveFormsModule,
+    NgxDropzoneModule,
+    NgDompurifyModule,
+    NgxEditorModule,
     FormsModule,
     HomeModule,
   ],

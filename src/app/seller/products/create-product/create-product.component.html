@@ -5,32 +5,19 @@
         <div class="col-md-2 col-sm-1"></div>
         <div class="col-md-8 col-sm-10">
           <div class="shadow p-3 mb-5 bg-body-tertiary p-4 rounded">
-            <h1 class="text-center pt-2 pb-4 mt-2 mb-4">Create Product</h1>
+            <h3 class="text-center pt-2 pb-4">Create Product</h3>
             <form [formGroup]="CreateProduct" (ngSubmit)="CreatePro()">
               <div class="mb-3">
                 <div class="col-xs-6">
-                  <div class="row center-xs mb-5 mx-5">
-                    <div class="image-container d-flex justify-content-center" style="height: 170px; overflow: auto">
-                      <img
-                        *ngFor="let images of productImg"
-                        [src]="images"
-                        alt="ProductImg"
-                      />
-                    </div>
-                  </div>
-                  <div class="row center-xs">
-                    <div class="col-xs-12 d-flex flex-column">
-                      <label
-                        for="exampleInputEmail1"
-                        class="form-label ps-1 mb-3"
-                        >Choose Product Image</label
-                      >
-                      <input
-                        type="file"
-                        (change)="ImageUpload($event)"
-                        multiple=""
-                      />
-                    </div>
+                  <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                      <div>
+                        <h2>Choose Product Image</h2>
+                      </div>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
                   </div>
                 </div>
               </div>
@@ -53,11 +40,11 @@
                   >This fild is invalid</span
                 >
               </div>
-              <div class="mb-3">
+             <div class="mb-1">
                 <label for="exampleFormControlTextarea1" class="form-label"
                   >Product description</label
                 >
-                <textarea
+                 <!-- <textarea
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
@@ -70,8 +57,17 @@
                     description && description.invalid && description.touched
                   "
                   >This fild is invalid</span
-                >
+                >-->
               </div>
+              <div class="NgxEditor__Wrapper">
+                <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                <ngx-editor
+                  [editor]="editor"
+                  formControlName="description"
+                  [placeholder]="'Type here...'"
+                ></ngx-editor>
+              </div>
+
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label ps-1"
                   >Price</label

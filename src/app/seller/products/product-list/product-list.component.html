@@ -2,7 +2,7 @@
 <div class="mx-5 mt-2">
   <div class="d-flex justify-content-between mb-4">
     <button class="btn btn-info" routerLink="/seller/products/create-product">
-      Create Produc
+      Create Product
     </button>
     <div>
       <b class="mx-2">SortBy</b>
@@ -84,7 +84,7 @@
       </div>
       <div class="card-body">
         <h5>{{ product.name }}</h5>
-        <div class="description">{{ product?.description }}</div>
+        <div class="description" [innerHTML]="product?.description | dompurify"></div>
         <div class="mb-2">
           <b><i class="bi bi-currency-rupee"></i>&nbsp;{{ product?.price }}</b>
         </div>
