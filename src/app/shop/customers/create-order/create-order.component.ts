@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { LocalStorageServiceService } from 'src/app/services/local-storage-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { clearCart, deleteProduct, deletOne } from 'src/app/cart-state-management/cart.action';
 
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.css'],
 })
-export class CreateOrderComponent implements OnInit {
+export class CreateOrderComponent implements OnInit,OnDestroy{
   userAddress: any;
   Products: any;
   selectedIndex: any;
@@ -120,6 +121,7 @@ export class CreateOrderComponent implements OnInit {
         this.toastr.success('Placed .', 'Successfully!');
         console.log(res);
         this.data1=res;
+        this.store.dispatch(clearCart());
         this.localstorage.setpaymentId(this.data1.order._id);
         this.router.navigate(['/shop/customers/make-payment'])
       },
@@ -129,5 +131,8 @@ export class CreateOrderComponent implements OnInit {
 
       },
     });
+  }
+  ngOnDestroy(): void {
+    this.store.dispatch(deletOne());
   }
 }

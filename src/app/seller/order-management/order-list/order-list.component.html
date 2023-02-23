@@ -6,7 +6,7 @@
         <th>Price</th>
         <th>Status</th>
         <th>Payment</th>
-        <th>Actions</th>
+        <th class="d-flex justify-content-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -31,12 +31,12 @@
         </td>
         <td>
           <span
-            *ngIf="order.status === 'Pending'"
+            *ngIf="order.status === 'Dispatched'"
             class="badge rounded-pill text-bg-warning d-inline"
             >{{ order.status }}</span
           >
           <span
-            *ngIf="order.status === 'Confirmed'"
+            *ngIf="order.status === 'Delivered'"
             class="badge rounded-pill text-bg-success d-inline"
             >{{ order.status }}</span
           >
@@ -46,67 +46,44 @@
             >{{ order.status }}</span
           >
           <span
-            *ngIf="order.status === 'Delivered'"
+            *ngIf="order.status === 'Confirmed'"
             class="badge rounded-pill text-bg-success d-inline"
-            >{{ order.status }}</span
-          >
-          <span
-            *ngIf="order.status === 'Dispatched'"
-            class="badge rounded-pill text-bg-warning d-inline"
             >{{ order.status }}</span
           >
         </td>
         <td>
-          <span
-            *ngIf="order.paymentStatus === 'Refunded'"
-            class="badge rounded-pill text-bg-danger d-inline"
-            >{{ order.paymentStatus }}</span
-          >
-          <span
-            *ngIf="order.paymentStatus === 'Pending'"
-            class="badge rounded-pill text-bg-warning d-inline"
-            >{{ order.paymentStatus }}</span
-          >
           <span
             *ngIf="order.paymentStatus === 'Paid'"
             class="badge rounded-pill text-bg-success d-inline"
             >{{ order.paymentStatus }}</span
           >
           <span
-            *ngIf="order.paymentStatus === 'Failed'"
+            *ngIf="order.paymentStatus === 'Refunded'"
             class="badge rounded-pill text-bg-danger d-inline"
             >{{ order.paymentStatus }}</span
           >
         </td>
-        <td>
-          <div
-            class="mx-5"
-            *ngIf="
-              order.paymentStatus === 'Paid' || order.status === 'Cancelled';
-              else other_content
-            "
-          >
-            -
-          </div>
-          <ng-template #other_content
-            ><button
-              (click)="goToPayment(order._id)"
+        <td class="d-flex justify-content-evenly" *ngIf="order.status === 'Dispatched' || order.status === 'Confirmed'">
+          <button
+
+          (click)="action($event,order._id)"
+              data-bs-toggle="modal"
+              class="btn btn-outline-danger btn-sm d-inline"
+            >cancel</button>
+            <button
+            (click)="action($event,order._id)"
               data-bs-toggle="modal"
               class="btn btn-outline-primary btn-sm d-inline"
             >
-              Payment
-            </button></ng-template
-          >
-        </td>
-        <td>
-          <button
-            *ngIf="order.status === 'Pending' || order.status === 'Confirmed' || order.status === 'Dispatched' "
-            (click)="cancelOrder(order._id)"
-            data-bs-toggle="modal"
-            class="btn btn-outline-dark btn-sm d-inline"
-          >
-            Cancel Order
-          </button>
+            dispatch
+            </button>
+            <button
+            (click)="action($event,order._id)"
+              data-bs-toggle="modal"
+              class="btn btn-outline-success btn-sm d-inline"
+            >
+            deliver
+            </button>
         </td>
       </tr>
     </tbody>
@@ -185,10 +162,11 @@
         <div class="d-flex justify-content-evenly mb-4">
           <p class="mb-2">Total(Incl. taxes)</p>
           <p class="mb-2">
-            ${{ pendingProduct?.total + subtotal?.deliveryFee }}
+            ${{ pendingProduct?.total + pendingProduct?.deliveryFee }}
           </p>
         </div>
       </div>
     </div>
   </div>
 </div>
+

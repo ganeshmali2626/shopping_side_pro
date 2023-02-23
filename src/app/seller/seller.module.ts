@@ -6,7 +6,8 @@ import { SellerRoutingModule } from './seller-routing.module';
 import { ProductsModule } from './products/products.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     HomeModule,

@@ -21,6 +21,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./products/products.module').then((mod) => mod.ProductsModule),
   },
+  {
+    canActivate: [AuthGuardGuard],
+    path: 'order-management',
+    loadChildren: () =>
+      import('./order-management/order-management.module').then((mod) => mod.OrderManagementModule),
+  },
 ];
 
 @NgModule({

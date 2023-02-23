@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { LocalStorageServiceService } from 'src/app/services/local-storage-service.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders-history',
@@ -18,7 +19,7 @@ export class OrdersHistoryComponent implements OnInit {
   url='/shop/orders';
   pendingProduct:any;
   subtotal:any;
-  constructor(private http: ApiServiceService,  private toastr: ToastrService,private localstorage:LocalStorageServiceService, private rout: Router){}
+  constructor(private http: ApiServiceService,private toastr: ToastrService,private localstorage:LocalStorageServiceService, private rout: Router){}
   ngOnInit(): void {
     this.getUserData();
   }
@@ -27,6 +28,7 @@ export class OrdersHistoryComponent implements OnInit {
       next: (res: any) => {
         this.orders=res;
         console.log(res);
+        this.totalpages=res.totalPages;
       },
       error: (err) => {
         console.log(err);
@@ -62,11 +64,21 @@ export class OrdersHistoryComponent implements OnInit {
 
   }
   cancelOrder(data:string){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.http
     .patchData(`/shop/orders/cancel/${data}`,"")
     .subscribe({
       next: (res) => {
-        this.toastr.success('Deleted .', 'Successfully!');
+        Swal.fire('Cancel!', 'Your Order has been Canceled.', 'success');
         this.getUserData();
         console.log(res);
       },
@@ -75,4 +87,7 @@ export class OrdersHistoryComponent implements OnInit {
       },
     });
   }
+});
+
+}
 }

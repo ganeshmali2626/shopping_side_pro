@@ -5,8 +5,10 @@ import {
   addOneCart,
   addOneTotal,
   addTotal,
+  clearCart,
   decrementQuantity,
   deleteProduct,
+  deletOne,
   incrementQuantity,
 } from './cart.action';
 export interface ProdutInfo {
@@ -39,7 +41,6 @@ export const initialState1: oneCart = {
   total: 0,
   deliveryFee: 50,
 };
-
 
 export const cartReducer = createReducer(
   initialState,
@@ -116,6 +117,15 @@ export const cartReducer = createReducer(
       ...state,
       items: temp,
     };
+  }),
+  on(clearCart, (state) => {
+    let temp = structuredClone(state.items);
+    temp = [];
+
+    return {
+      ...state,
+      items: temp,
+    };
   })
 );
 export const cartReducer1 = createReducer(
@@ -130,11 +140,9 @@ export const cartReducer1 = createReducer(
       temp1.push(dataInfo11);
     }
     console.log(temp1.length);
-    if(temp1.length>1)
-    {
+    if (temp1.length > 1) {
       temp1.splice(0, 1);
     }
-
 
     console.log(temp1);
     return {
@@ -142,18 +150,26 @@ export const cartReducer1 = createReducer(
       items: temp1,
     };
   }),
-  on(addOneTotal, (state) => {
-    let temp1 = structuredClone(state.items);
-    var cartTotal = structuredClone(state.total);
+  on(addOneTotal, (state1) => {
+    let temp1 = structuredClone(state1.items);
+    var cartTotal = structuredClone(state1.total);
     var count = 0;
     temp1.map((data: any) => {
       count = count + data['subTotal'];
     });
     console.log(cartTotal);
     return {
-      ...state,
+      ...state1,
       total: count,
     };
   }),
-);
+  on(deletOne, (state1) => {
+    let temp1 = structuredClone(state1.items);
+    temp1 = [];
 
+    return {
+      ...state1,
+      items: temp1,
+    };
+  })
+);

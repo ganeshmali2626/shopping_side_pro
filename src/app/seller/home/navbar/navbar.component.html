@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/seller/products/"
-      ><b>HOME</b></a
+      ><b><i class="bi bi-house-fill"></i>&nbsp;HOME</b></a
     >
 
     <div class="d-flex justify-content-end">
@@ -9,13 +9,24 @@
         <a
           class="nav-link active"
           aria-current="page"
+          routerLink="/seller/order-management"
+          ><b><i class="bi bi-truck"></i>&nbsp;Order List</b></a
+        >
+      </div>
+      <div class="navbar-nav pe-2">
+        <a
+          class="nav-link active"
+          aria-current="page"
           routerLink="/seller/home/myprofile"
-          ><b>PROFILE</b></a
+          ><b><i class="bi bi-person-fill"></i>&nbsp;PROFILE</b></a
         >
       </div>
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" routerLink="/seller/home/users"
-          ><b>USERS</b></a
+        <a
+          class="nav-link active"
+          aria-current="page"
+          routerLink="/seller/home/users"
+          ><b><i class="bi bi-people-fill"></i>&nbsp;USERS</b></a
         >
       </div>
       <button
