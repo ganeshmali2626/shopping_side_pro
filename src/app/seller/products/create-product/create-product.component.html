@@ -16,7 +16,7 @@
                       </div>
                     </ngx-dropzone-label>
                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      <ngx-dropzone-label>{{ f?.name }} ({{ f?.type }})</ngx-dropzone-label>
                     </ngx-dropzone-image-preview>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                 </div>
                 <span
                   style="color: red"
-                  *ngIf="name && name.invalid && name.touched"
+                  *ngIf="name && name?.invalid && name?.touched"
                   >This fild is invalid</span
                 >
               </div>
@@ -60,9 +60,10 @@
                 >-->
               </div>
               <div class="NgxEditor__Wrapper">
-                <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                <ngx-editor-menu  [editor]="editor"> </ngx-editor-menu>
                 <ngx-editor
                   [editor]="editor"
+                  ngDefaultControl
                   formControlName="description"
                   [placeholder]="'Type here...'"
                 ></ngx-editor>
@@ -85,7 +86,7 @@
                 </div>
                 <span
                   style="color: red"
-                  *ngIf="price && price.invalid && price.touched"
+                  *ngIf="price && price?.invalid && price?.touched"
                   >This fild is invalid</span
                 >
               </div>

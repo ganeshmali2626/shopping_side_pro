@@ -1,4 +1,4 @@
-<section *ngIf="cartProducts.total !== 0" class="h-100 h-custom">
+<section *ngIf="cartProducts?.total !== 0" class="h-100 h-custom">
   <div  class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
@@ -20,53 +20,53 @@
                   <div>
                     <p class="mb-1">Shopping cart</p>
                     <p class="mb-0">
-                      You have {{ cartProducts.items.length }} items in your
+                      You have {{ cartProducts?.items?.length }} items in your
                       cart
                     </p>
                   </div>
                 </div>
 
-                <div *ngFor="let products of cartProducts.items">
+                <div *ngFor="let products of cartProducts?.items">
                   <hr class="my-4" />
                   <div
                     class="row mb-4 d-flex justify-content-between align-items-center"
                   >
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img
-                        src="{{ products.images[0].url }}"
+                        src="{{ products?.images[0]?.url }}"
                         class="img-fluid rounded-3"
                         alt="product Images"
                       />
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-black">{{ products.name }}</h6>
+                      <h6 class="text-black">{{ products?.name }}</h6>
                       <h6 id="description" class="text-muted mb-0">
-                        {{ products.description }}
+                        {{ products?.description }}
                       </h6>
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                       <button
-                        (click)="minusproduct(products._id)"
+                        (click)="minusproduct(products?._id)"
                         class="btn btn-link px-2"
                       >
                         <i class="fa fa-minus"></i>
                       </button>
 
-                      <h5 class="fw-normal mt-2 mx-2">{{ products.qty }}</h5>
+                      <h5 class="fw-normal mt-2 mx-2">{{ products?.qty }}</h5>
 
                       <button
-                        (click)="plusproduct(products._id)"
+                        (click)="plusproduct(products?._id)"
                         class="btn btn-link px-2"
                       >
                         <i class="fa fa-plus"></i>
                       </button>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">&#8377; {{ products.price }}</h6>
+                      <h6 class="mb-0">&#8377; {{ products?.price }}</h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <button
-                        (click)="deletedata(products._id)"
+                        (click)="deletedata(products?._id)"
                         class="btn btn-link text-dark"
                       >
                         <i class="fa fa-trash"></i>
@@ -82,19 +82,19 @@
 
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Subtotal</p>
-                      <p class="mb-2">&#8377; {{ cartProducts.total }}</p>
+                      <p class="mb-2">&#8377; {{ cartProducts?.total }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Shipping</p>
-                      <p class="mb-2">&#8377; {{ cartProducts.deliveryFee }}</p>
+                      <p class="mb-2">&#8377; {{ cartProducts?.deliveryFee }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between mb-4">
                       <p class="mb-2">Total(Incl. taxes)</p>
                       <p class="mb-2">
                         &#8377;
-                        {{ cartProducts.total + cartProducts.deliveryFee }}
+                        {{ cartProducts?.total + cartProducts?.deliveryFee }}
                       </p>
                     </div>
 
@@ -116,7 +116,7 @@
     </div>
   </div>
 </section>
-<div *ngIf="cartProducts.total === 0">
+<div *ngIf="cartProducts?.total === 0">
   <div class="container mt-2">
     <div class="row justify-content-center">
       <div class="col-lg-8">

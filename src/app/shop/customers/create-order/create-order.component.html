@@ -8,10 +8,10 @@
             <p class="text-uppercase fw-bold mb-3 text-font">Address</p>
             <div class="row">
               <div class="col-md-4">
-                <p>Your City- {{ userAddress[a]?.city }}</p>
+                <p>Your City- {{ userAddress?.city }}</p>
               </div>
               <div class="col-md-7">
-                <button *ngIf="userAddress.length>=1"
+                <button *ngIf="userAddress?.length >=1"
                   type="button"
                   class="btn btn-outline-dark float-end button-color"
                   data-mdb-ripple-color="dark"
@@ -20,7 +20,7 @@
                 >
                   Change Address
                 </button>
-                <button *ngIf="userAddress.length<1"
+                <button *ngIf="userAddress?.length<1"
                 class="btn btn-outline-dark float-end button-color"
                 data-bs-toggle="modal"
                 data-bs-target="#addressModal"
@@ -36,7 +36,7 @@
             <div class="card-header py-3">
               <h5 class="mb-0 text-font text-uppercase">Delivery address</h5>
             </div>
-            <div *ngIf="userAddress.length>=1" class="card-body">
+            <div *ngIf="userAddress?.length>=1" class="card-body">
               <div class="fw-bold px-3">
                 <p>
                   {{
@@ -50,7 +50,7 @@
           </div>
           <div class="text-center">
             <button
-            [disabled]="userAddress.length<1 || Products?.items?.length===0 "
+            [disabled]="userAddress?.length<1 || Products?.items?.length===0 "
               type="button"
               class="btn button-order col-md-10"
               (click)="sendUserInfo()"
@@ -66,7 +66,7 @@
             <h5 class="mb-0 text-font">{{ Products?.items?.length }} item</h5>
           </div>
           <div class="card-body">
-            <div class="row" *ngFor="let prodetails of Products.items">
+            <div class="row" *ngFor="let prodetails of Products?.items">
               <div class="col-md-4">
                 <img
                   src="{{ prodetails?.images[0]?.url }}"
@@ -80,7 +80,7 @@
                   >&#8377; {{ prodetails?.price }}</span
                 >
                 <p class="mb-0 text-descriptions fw-bold">
-                  {{ prodetails.name }}
+                  {{ prodetails?.name }}
                 </p>
                 <p id="description1" class="text-descriptions">
                   {{ prodetails?.description }}

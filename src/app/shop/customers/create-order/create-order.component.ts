@@ -16,6 +16,7 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   userAddress: any;
   Products: any;
   selectedIndex: any;
+  x=0;
   a = 0;
   i!: number;
 
@@ -59,7 +60,7 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
       }
     });
     this.getAddress1();
-    if (this.Products.items.length == 0) {
+    if (this.Products?.items?.length == 0) {
       this.router.navigate(['/shop/products/']);
     }
   }
@@ -111,9 +112,9 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
 
 
     // delete this.userAddress[this.a]._id;
-    this.allProductsDetails.items=this.Products.items;
-    this.allProductsDetails.deliveryFee=this.Products.deliveryFee;
-    this.allProductsDetails.total=this.Products.total;
+    this.allProductsDetails.items=this.Products?.items;
+    this.allProductsDetails.deliveryFee=this.Products?.deliveryFee;
+    this.allProductsDetails.total=this.Products?.total;
     this.allProductsDetails.address=this.userAddress[this.a];
 
     this.http.postData('/shop/orders',this.allProductsDetails ).subscribe({
