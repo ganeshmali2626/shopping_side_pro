@@ -12,10 +12,10 @@ export function dontAllowVoidSpaces(controls: AbstractControl) {
   }
 }
 
-export function captchaGeneration( recaptcha: ReCaptchaV3Service) :string {
- let capcha='';
- recaptcha.execute('importantAction').subscribe((token: string) => { 
-   capcha=token
-  });
-  return capcha 
-}
+// export function captchaGeneration( recaptcha: ReCaptchaV3Service) :string {
+//  let capcha='';
+//  recaptcha.execute('importantAction').subscribe((token: string) => {
+//    capcha=token
+//   });
+//   return capcha
+// }

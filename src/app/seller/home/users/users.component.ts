@@ -1,13 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2';
 
+const SWEETALERT_CONFIG_TOKEN = 'SweetAlertConfigToken';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
+  providers: [
+    {
+      provide: SWEETALERT_CONFIG_TOKEN,
+      useValue: {
+        title: 'Are you sure?',
+        text: "You won't be Logout!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+      },
+    },
+  ],
 })
 export class UsersComponent implements OnInit {
   name1: string = '';
@@ -21,7 +36,9 @@ export class UsersComponent implements OnInit {
   editId?: string;
   url = `/users?limit=${this.limit}&page=${this.page}`;
 
-  constructor(private http: ApiServiceService, private toastr: ToastrService) {}
+  constructor(private http: ApiServiceService, private toastr: ToastrService,
+    @Inject(SWEETALERT_CONFIG_TOKEN) private swalConfig: any
+    ) {}
   ngOnInit(): void {
     this.getUserData();
   }
@@ -78,7 +95,7 @@ export class UsersComponent implements OnInit {
           this.getUserData();
         },
         error: (err) => {
-          this.toastr.error(err.error.message, 'Somthing Wrong!');
+          this.toastr.error(err?.error?.message, 'Somthing Wrong!');
         },
       });
   }
@@ -116,15 +133,7 @@ export class UsersComponent implements OnInit {
     }
   }
   deleteUser(id: string) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
+    Swal.fire(this.swalConfig).then((result) => {
       if (result.isConfirmed) {
         this.http.deleteData(`/users/${id}`).subscribe({
           next: (res: any) => {

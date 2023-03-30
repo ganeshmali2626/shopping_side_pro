@@ -10,10 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Store } from '@ngrx/store';
 import { StoreModule } from '@ngrx/store';
+import { addTotal, decrementQuantity, deleteProduct, incrementQuantity } from 'src/app/cart-state-management/cart.action';
 
 describe('CartComponent', () => {
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
+  let store: Store;
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [ HttpClientTestingModule,StoreModule.forRoot({}),RouterTestingModule, FormsModule,
@@ -28,10 +30,33 @@ describe('CartComponent', () => {
 
     fixture = TestBed.createComponent(CartComponent);
     component = fixture.componentInstance;
+    store = TestBed.inject(Store);
+    spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should decrement product quantity', () => {
+    const data = { id: 1, name: 'Product 1', quantity: 2, price: 10 };
+    component.minusproduct(data);
+    expect(store.dispatch).toHaveBeenCalledWith(decrementQuantity({dataInfo: data}));
+    expect(store.dispatch).toHaveBeenCalledWith(addTotal());
+  });
+
+  it('should increment product quantity', () => {
+    const data = { id: 1, name: 'Product 1', quantity: 2, price: 10 };
+    component.plusproduct(data);
+    expect(store.dispatch).toHaveBeenCalledWith(incrementQuantity({dataInfo: data}));
+    expect(store.dispatch).toHaveBeenCalledWith(addTotal());
+  });
+
+  it('should delete product', () => {
+    const data = { id: 1, name: 'Product 1', quantity: 2, price: 10 };
+    component.deletedata(data);
+    expect(store.dispatch).toHaveBeenCalledWith(deleteProduct({dataInfo: data}));
+    expect(store.dispatch).toHaveBeenCalledWith(addTotal());
   });
 });

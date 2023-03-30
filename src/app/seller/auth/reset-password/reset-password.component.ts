@@ -15,11 +15,11 @@ export class ResetPasswordComponent implements OnInit {
   passToken: any;
   protected aFormGroup!: FormGroup;
   constructor(
-    private router: Router,
+    public router: Router,
     private http: ApiServiceService,
-    private toastr: ToastrService,
+    public toastr: ToastrService,
     private recaptcha: ReCaptchaV3Service,
-    private route: ActivatedRoute
+    public route: ActivatedRoute
   ) {}
 
   reset = new FormGroup({

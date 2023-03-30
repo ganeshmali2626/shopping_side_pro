@@ -34,4 +34,69 @@ describe('ProductsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should call getUserData() method on initialization', () => {
+    spyOn(component, 'getUserData');
+    component.ngOnInit();
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should set sortBy value and call getUserData() method', () => {
+    spyOn(component, 'getUserData');
+    component.sortByData('price');
+    expect(component.sortBy).toBe('price');
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should set name1 value and call getUserData() method', () => {
+    spyOn(component, 'getUserData');
+    component.serchValue('product');
+    expect(component.name1).toBe('product');
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should decrease page value and call getUserData() method', () => {
+    spyOn(component, 'getUserData');
+    component.page = 2;
+    component.previousPage();
+    expect(component.page).toBe(1);
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should increase page value and call getUserData() method', () => {
+    spyOn(component, 'getUserData');
+    component.nextPage();
+    expect(component.page).toBe(2);
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should set limit value and call getUserData() method', () => {
+    spyOn(component, 'getUserData');
+    component.handleLimit(10);
+    expect(component.limit).toBe(10);
+    expect(component.getUserData).toHaveBeenCalled();
+  });
+
+  it('should add data to cart and dispatch actions', () => {
+    spyOn(component['store'], 'dispatch');
+    const data = { _id: 1, name: 'Product', price: 10 };
+    component.add(data);
+    // expect(data.qty).toBe(1);
+    // expect(data.subTotal).toBe(10);
+    // expect(data.productId).toBe(1);
+    expect(component['store'].dispatch).toHaveBeenCalledTimes(2);
+  });
+
+  it('should add data to cart and dispatch actions and navigate to create order page', () => {
+    spyOn(component['store'], 'dispatch');
+    spyOn(component['rout'], 'navigate');
+    const data = { _id: 1, name: 'Product', price: 10 };
+    component.buyNow(data);
+    // expect(data.qty).toBe(1);
+    // expect(data.subTotal).toBe(10);
+    // expect(data.productId).toBe(1);
+    expect(component['store'].dispatch).toHaveBeenCalledTimes(2);
+    expect(component['rout'].navigate).toHaveBeenCalledWith(['/shop/customers/creat-order']);
+  });
 });

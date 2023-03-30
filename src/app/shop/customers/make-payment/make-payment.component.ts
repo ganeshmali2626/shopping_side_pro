@@ -24,8 +24,8 @@ export class MakePaymentComponent implements OnInit,OnDestroy{
 
   constructor(private http: ApiServiceService,
     private localstorage:LocalStorageServiceService,
-    private toastr: ToastrService,
-    private router: Router,
+    public toastr: ToastrService,
+    public router: Router,
     private store:Store<{state:any,state1:any}>){ }
   ngOnInit(): void {
     this.store.select('state1').subscribe((data:any)=>{

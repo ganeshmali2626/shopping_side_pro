@@ -51,7 +51,7 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
     this.store.select('state1').subscribe((data: any) => {
       console.log(data);
-      if (data.total !== 0) {
+      if (data?.total !== 0) {
         this.Products = data;
         console.log(this.Products);
       } else {

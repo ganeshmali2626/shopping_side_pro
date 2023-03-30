@@ -108,6 +108,4 @@ export class LoginComponent implements OnInit {
       });
   }
 }
-function removeData() {
-  throw new Error('Function not implemented.');
-}
+
