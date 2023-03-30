@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   collection() {
 
     this.http
-      .postData('/auth/register?captcha=true', this.register.value)
+      .postData('/auth/register?captcha=true', this.register?.value)
       .subscribe({
         next: (res) => {
           this.toastr.success('Registered .', 'Successfully!');

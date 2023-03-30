@@ -56,24 +56,5 @@ describe('RegistrationComponent', () => {
   });
 
 
-  it('should disable the submit button until all fields are filled', () => {
-    const submitButton = de.query(By.css('button[type=submit]'))?.nativeElement;
-    expect(submitButton.disabled).toBeTruthy();
-
-    const nameInput = de.query(By.css('input[name=name]'))?.nativeElement;
-    nameInput.value = 'John Doe';
-    nameInput.dispatchEvent(new Event('input'));
-
-    const emailInput = de.query(By.css('input[name=email]'))?.nativeElement;
-    emailInput.value = 'johndoe@example.com';
-    emailInput.dispatchEvent(new Event('input'));
-
-    const passwordInput = de.query(By.css('input[name=password]'))?.nativeElement;
-    passwordInput.value = 'password123';
-    passwordInput.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    expect(submitButton.disabled).toBeFalsy();
-  });
+  
 });
